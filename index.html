@@ -1,0 +1,59 @@
+<html>
+    <head>
+    </head>
+    <body>
+	<canvas id="game" width="100" height="100" />
+    </body>
+    <script type="text/javascript">
+     var canvas = document.getElementById("game");
+     var ctx = canvas.getContext('2d');
+     ctx.rect(50,50,10,10);
+     ctx.stroke();
+
+     canvas.focus();
+     document.addEventListener("keydown", getKeyPress);
+
+     var movementStep = 5;
+     var posX = 10;
+     var posY = 10;
+
+     setInterval(updateCanvas, 10);
+
+     function updateCanvas() {
+	 ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+	 ctx.beginPath();
+	 ctx.fillRect(posX, posY, 10, 10);
+	 ctx.rect(posY, posX, 10, 10);
+
+	 ctx.rect(0, 0, canvas.width, canvas.height);
+	 ctx.stroke();
+     }
+ 
+     function getKeyPress(e) {
+	 console.log("key press: ", e.keyCode);
+	 if (e.keyCode === 87) {
+	     posY = posY - movementStep;
+	 } else if (e.keyCode === 83) {
+	     posY = posY + movementStep;
+	 } else if (e.keyCode === 65) {
+	     posX = posX - movementStep;
+	 } else if (e.keyCode === 68) {
+	     posX = posX + movementStep;
+	 }
+
+	 if (posX < 0) {
+	     posX = 0;
+	 } else if (posX > canvas.width - 10) {
+	     posX = canvas.width - 10;
+	 }
+	 
+	 if (posY < 0) {
+	     posY = 0;
+	 } else if (posY > canvas.height - 10) {
+	     posY = canvas.height - 10;
+	 }
+     }
+     
+    </script> 
+</html>
